@@ -1,9 +1,6 @@
 # MESA_Accreting_2.5Msun
 
-Author: Kayla Martin
-Year: 2023
-Purpose: Master of Research at Macquarie University, Sydney Australia.
-
+Author: Kayla Martin, Master of Research candidate at Macquarie University, Sydney Australia.
 
 Description: 
 
