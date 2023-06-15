@@ -1,0 +1,60 @@
+The purpose of this model is to evolve a star through the post-AGB phase while experiencing accretion of metal-poor gas from a circumbinary disk. Accretion of gas results in a phenomenon known as chemical depletion which is observed in many post-AGB stars with a circumbinary disk (Oomen et al. 2019). 
+
+
+The following files must first be modified within the main mesa code (generalised; see each file for further details): 
+
+	1) $MESA_DIR/star_data/public/star_data_step_input.inc  
+		-- Extra variables added for accretion from a circumbinary disk
+	
+	2) $MESA_DIR/star/private/adjust_mass.f90  
+		-- Subroutine do_adjust_mass altered to allow simultaneous mass-loss by stellar wind and accretion of 
+		   gas with a specified composition
+		-- Subroutine set_xa altered to set the outer layers of accreted material to the accreted composition
+                -- Important alteration made to timestep dt in 'frac' calculation (line 903): dt must be converted from sec to yrs (i.e., dt/31556952)
+
+	3) $MESA_DIR/star/private/turb_info.f90 
+		-- Line added to reduce gradT excess in more massive post-AGB models (CO core + He shell mass > 0.65 Msun) 
+ 
+
+After modifications, install the changes by running ./install inside the $MESA_DIR directory.
+
+
+Additionally, the run_star_extras.f90 file inside your model directory must be altered to include two new subroutines -- evolve_to_PAGB and do_PAGB_evolution (see provided run_star_extras.f90 file in this repository). In run_star_extras.f90, you will point s% other_adjust_mdot to these subroutines at different points in the star's evolution (details below). The file inlist_project in your model directory will be 'told' to access the other_adjust_mdot subroutines stored within the star_info structure.
+
+
+
+Now you are ready to run a model! To run the model in this work, the following general steps were used:
+
+	Step 1) Evolve the star toward the RGB/AGB phase:
+
+	- Evolve the model from the pre-MS to the desired post-AGB core mass (CO core + He shell), which is set by the stopping 
+          condition he_core_mass_limit in inlist_project.
+	- For this step, point s% other_adjust_mdot => evolve_to_PAGB in run_star_extras.f90, so that only a stellar wind 
+          is activated.
+
+	Step 2) Evolve the star to the start of the post-AGB phase:
+
+	- Now, we want to evolve the star to the post-AGB phase by removing the remaining envelope mass via stellar winds down 
+	  to 0.02 Msun, on a short timescale of ~ 10,000 years.
+	- To achieve this, alter the subroutine evolve_to_PAGB in run_star_extras.f90 such that %mass_change = -1d-4.
+	- Additionally, set the stopping condition envelope_mass_limit = 0.02 in inlist_project.
+	- Continue the evolution for this step from the last photo file output by the model run during Step 1.
+
+
+	Step 3) Evolve the star through the post-AGB phase, while applying accretion:
+
+	- The star now enters the post-AGB phase. Accretion will begin in the model at a specified Tstart temperature (here, 4000 K), and continue
+          until Teff ~ 50,000 K (the hot PN stage).
+	- To apply accretion in the model in this way, point s% other_adjust_mdot => do_PAGB_evolution in run_star_extras.f90. Here, you 
+          can set the starting accretion rate (Mdot), initial disc mass (Md), and the temperature at which you want to start the accretion (Tstart). 
+          More information about these parameters, as well as the disc model, can be found in Oomen et al. (2019).
+	- Additionally, set the stopping condition Teff_upper_limit = 5d4 in inlist_project to terminate evolution with accretion at 50,000 K.
+
+
+Note: none of the changes to the star_info structure or run_star_extras will apply until s% deplete = .true. in the model.
+
+
+================================================================================================================================= 
+  
+Note: to evolve more massive post-AGB stars (i.e., of around 0.65 Msun), you can set okay_to_reduce_gradT_excess to .true. in 
+      order to avoid convergence issues. Oomen et al. (2019) were unsuccessful in evolving post-AGB stars of Mcore >= 0.70 Msun.
