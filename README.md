@@ -14,5 +14,5 @@ Please refer to the modifications_summary.txt file for more information on modif
 
 Full documentation for MESA can be viewed [here](https://docs.mesastar.org/). 
 
-If you have any questions or problems regarding the use of the MESA files contained in this repository, please email me at kayla.martin@mq.edu.au.
+If you have any questions or problems regarding the use of the MESA files contained in this repository, please email me at kayla.martin@students.mq.edu.au.
 
