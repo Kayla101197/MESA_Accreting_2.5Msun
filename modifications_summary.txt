@@ -1,7 +1,10 @@
-The purpose of this model is to evolve a star through the post-AGB phase while experiencing accretion of metal-poor gas from a circumbinary disk. Accretion of gas results in a phenomenon known as chemical depletion which is observed in many post-AGB stars with a circumbinary disk (Oomen et al. 2019). 
+The purpose of this model is to evolve a star through the post-AGB phase while experiencing accretion of metal-poor gas from a circumbinary disk. 
+Accretion of gas results in a phenomenon known as chemical depletion which is observed in many post-AGB stars with a circumbinary disk (Oomen et al. 2019). 
 
 
-The following files must first be modified within the main mesa code (generalised; see each file for further details): 
+### MODIFICATIONS ###
+The following files must first be modified within the main MESA code. The modified versions of these files, with the changes listed below already implemented, 
+are provided in the 'MESA_scripts_modified' folder of the GitHub repository for this work (https://github.com/Kayla101197/MESA_Accreting_2.5Msun.git): 
 
 	1) $MESA_DIR/star_data/public/star_data_step_input.inc  
 		-- Extra variables added for accretion from a circumbinary disk
@@ -19,11 +22,14 @@ The following files must first be modified within the main mesa code (generalise
 After modifications, install the changes by running ./install inside the $MESA_DIR directory.
 
 
-Additionally, the run_star_extras.f90 file inside your model directory must be altered to include two new subroutines -- evolve_to_PAGB and do_PAGB_evolution (see provided run_star_extras.f90 file in this repository). In run_star_extras.f90, you will point s% other_adjust_mdot to these subroutines at different points in the star's evolution (details below). The file inlist_project in your model directory will be 'told' to access the other_adjust_mdot subroutines stored within the star_info structure.
+The run_star_extras.f90 file inside your model directory must also be altered to include two new subroutines -- evolve_to_PAGB   and   do_PAGB_evolution 
+(see provided run_star_extras.f90 file in this repository). In run_star_extras.f90, you will point s% other_adjust_mdot to these subroutines at different 
+points in the star's evolution (details below). The file inlist_project in your model directory will be 'told' to access the other_adjust_mdot subroutines 
+stored within the star_info structure.
 
 
-
-Now you are ready to run a model! To run the model in this work, the following general steps were used:
+### RUNNING A MODEL ###
+Now you are ready to run a model! Follow these general steps:
 
 	Step 1) Evolve the star toward the RGB/AGB phase:
 
@@ -51,10 +57,7 @@ Now you are ready to run a model! To run the model in this work, the following g
 	- Additionally, set the stopping condition Teff_upper_limit = 5d4 in inlist_project to terminate evolution with accretion at 50,000 K.
 
 
-Note: none of the changes to the star_info structure or run_star_extras will apply until s% deplete = .true. in the model.
-
-
-================================================================================================================================= 
-  
-Note: to evolve more massive post-AGB stars (i.e., of around 0.65 Msun), you can set okay_to_reduce_gradT_excess to .true. in 
-      order to avoid convergence issues. Oomen et al. (2019) were unsuccessful in evolving post-AGB stars of Mcore >= 0.70 Msun.
+### ADDITIONAL NOTES ###
+Note #1: none of the changes to the star_info structure or run_star_extras will apply until s% deplete = .true. in the model. 
+Note #2: to evolve more massive post-AGB stars (i.e., of around 0.65 Msun), you can set okay_to_reduce_gradT_excess to .true. in order to avoid 
+         convergence issues. Oomen et al. (2019) were unsuccessful in evolving post-AGB stars of Mcore >= 0.70 Msun.
