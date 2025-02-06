@@ -1,5 +1,6 @@
-The purpose of this model is to evolve a star through the post-AGB phase while experiencing accretion of metal-poor gas from a circumbinary disk. 
-Accretion of gas results in a phenomenon known as chemical depletion which is observed in many post-AGB stars with a circumbinary disk (Oomen et al. 2019). 
+The purpose of this model is to evolve a star through the post-AGB phase while applying the accretion of metal-poor gas from a circumbinary disk. 
+Accreted gas produces a phenomenon referred to as chemical depletion, observed in almost all post-AGB stars with a circumbinary disk (see Oomen et al. 2019),
+and effectively stalls the post-AGB star at lower effective temperatures, prolonging the post-AGB evolution timescale. 
 
 
 ### MODIFICATIONS ###
