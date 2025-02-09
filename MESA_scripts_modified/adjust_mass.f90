@@ -385,7 +385,7 @@
          end do
 
          ! CHANGES BY GLENN-MICHAEL OOMEN
-         ! Try to get the code to change the outer composition even though delta_m negative.
+         ! Try to get the code to change the outer composition even though delta_m negative
          ! If the boolean s% deplete is set to true, then define xaccrete as if delta_m is positive
          if (s% deplete) then
             if (s% accrete_same_as_surface) then
