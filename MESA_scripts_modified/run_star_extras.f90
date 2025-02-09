@@ -20,7 +20,7 @@
 !
 ! ***********************************************************************
 
-! Note: this file has been modified by Kayla Martin (incl. comments throughout), based on the work of Glenn-Michael Oomen (incl. comments and code).
+! Kayla has modified this file based on the work of Oomen et al. (2019,2020)
 
 
       module run_star_extras
