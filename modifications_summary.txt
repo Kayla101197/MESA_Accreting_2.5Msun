@@ -1,6 +1,4 @@
-The purpose of this model is to evolve a star through the post-AGB phase while applying the accretion of metal-poor gas from a circumbinary disk. 
-Accreted gas produces a phenomenon referred to as chemical depletion, observed in almost all post-AGB stars with a circumbinary disk (see Oomen et al. 2019),
-and effectively stalls the post-AGB star at lower effective temperatures, prolonging the post-AGB evolution timescale. 
+The purpose of this model is to evolve a star through the post-AGB phase while applying the accretion of metal-poor gas from a circumbinary disk. Accreted gas produces a phenomenon referred to as chemical depletion, observed in almost all post-AGB stars with a circumbinary disk (see Oomen et al. 2019). 
 
 
 ### MODIFICATIONS ###
@@ -59,6 +57,6 @@ Now you are ready to run a model! Follow these general steps:
 
 
 ### ADDITIONAL NOTES ###
-Note #1: none of the changes to the star_info structure or run_star_extras will apply until s% deplete = .true. in the model. 
-Note #2: to evolve more massive post-AGB stars (i.e., of around 0.65 Msun), you can set okay_to_reduce_gradT_excess to .true. in order to avoid 
-         convergence issues. Oomen et al. (2019) were unsuccessful in evolving post-AGB stars of Mcore >= 0.70 Msun.
+None of the changes to the star_info structure or run_star_extras will apply until s% deplete = .true. in the model. 
+To evolve more massive post-AGB stars (~0.65 Msun), set okay_to_reduce_gradT_excess to .true. to avoid convergence 
+issues. See Oomen et al. (2019).
