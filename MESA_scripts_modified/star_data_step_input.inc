@@ -5,8 +5,7 @@
 ! can be saved in models and photos.
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-! Kayla has added the below from OomenMesa files:
-! Date 14/2/23
+! Kayla added the below from Glenn-Michael Oomen MESA files:
 
     ! Stuff used by Glenn-Michael Oomen
         logical :: deplete = .false.
